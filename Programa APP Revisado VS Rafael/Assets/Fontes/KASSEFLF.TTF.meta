@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: e5911d8f96effbc48ad40723c0098a35
+timeCreated: 1477701566
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - KasseFLF
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 1aa910d1425bb684d9aa861d43598c24, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
