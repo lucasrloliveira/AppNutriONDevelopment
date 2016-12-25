@@ -31,21 +31,6 @@ public class SelecionaRefeicao : MonoBehaviour {
         }
     }
 
-    public string MainPrefix
-    {
-        get
-        {
-            return m_mainPrefix;
-        }
-        set
-        {
-            if (m_mainPrefix == value)
-                return;
-            m_mainPrefix = value;
-            SetDirty();
-        }
-    }
-
     public string Prefix
     {
         get
@@ -57,6 +42,23 @@ public class SelecionaRefeicao : MonoBehaviour {
             if (m_prefix == value)
                 return;
             m_prefix = value;
+            SetDirty();
+            SetCorrectPrefix();
+        }
+    }
+
+
+    public string MainPrefix
+    {
+        get
+        {
+            return m_mainPrefix;
+        }
+        set
+        {
+            if (m_mainPrefix == value)
+                return;
+            m_mainPrefix = value;
             SetDirty();
         }
     }
@@ -98,5 +100,10 @@ public class SelecionaRefeicao : MonoBehaviour {
             m_titleField.text = m_title;
         if (m_form != null)
             m_form.PrefixoPossivel = m_mainPrefix+m_prefix;
+    }
+
+    public void SetCorrectPrefix()
+    {
+        RefeicaoManager.Instance.CurrentPrefix = m_prefix;
     }
 }

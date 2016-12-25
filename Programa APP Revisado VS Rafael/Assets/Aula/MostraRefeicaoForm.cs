@@ -14,8 +14,8 @@ public class MostraRefeicaoForm : MonoBehaviour
     TrocaAlimentoFormPopup m_popupDeTroca = null;
     [SerializeField]
     string m_prefixoPossivel = "Ceia";
-    //[SerializeField]
-    //float m_porcentagemDeKilocaloriasTotais = 0.1f;
+    [SerializeField]
+    float m_porcentagemDeKilocaloriasTotais = 0.1f;
 
     [SerializeField]
     Text m_nota = null;
@@ -43,29 +43,12 @@ public class MostraRefeicaoForm : MonoBehaviour
         {
             foreach (var v_prefixoPorPorcentagem in RefeicaoManager.Instance.PrefixosPorPercentual)
             {
-                if (v_prefixoPorPorcentagem != null && m_prefixoPossivel != null)
+                if (v_prefixoPorPorcentagem != null && m_prefixoPossivel != null && m_prefixoPossivel.Contains(v_prefixoPorPorcentagem.Prefixo))
                 {
-                    if (v_prefixoPorPorcentagem.Contains("CafeManha"))
-                        return RefeicaoManager.Instance.PercentuaisRefeicoes[0];
-                    else if (v_prefixoPorPorcentagem.Contains("Colacao"))
-                        return RefeicaoManager.Instance.PercentuaisRefeicoes[1];
-                    else if (v_prefixoPorPorcentagem.Contains("Almoco"))
-                        return RefeicaoManager.Instance.PercentuaisRefeicoes[2];
-                    else if (v_prefixoPorPorcentagem.Contains("LancheTarde"))
-                        return RefeicaoManager.Instance.PercentuaisRefeicoes[3];
-                    else if (v_prefixoPorPorcentagem.Contains("Jantar"))
-                        return RefeicaoManager.Instance.PercentuaisRefeicoes[4];
-                    else if (v_prefixoPorPorcentagem.Contains("Ceia"))
-                        return RefeicaoManager.Instance.PercentuaisRefeicoes[5];
-                    else
-                    {
-                        Debug.Log("o prefixo é:" + v_prefixoPorPorcentagem);
-                        return 0.1f;
-                    }
-                    
+                    return v_prefixoPorPorcentagem.Percentual;
                 }
             }
-            return 0.2f;
+            return 0.1f;
         }
     }
 

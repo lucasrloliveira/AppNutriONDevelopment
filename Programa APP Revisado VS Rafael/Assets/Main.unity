@@ -1994,8 +1994,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 823100362}
-        m_MethodName: SalvaInfoGerenciadorDietasKcalPercentAndDropdown
+      - m_Target: {fileID: 1787127085}
+        m_MethodName: SetPercentTodasAsRefeicoes
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2007,17 +2007,6 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 823100362}
         m_MethodName: SalvaIconesRefeicaoRemovidos
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 355684460}
-        m_MethodName: SetPercentTodasAsRefeicoes
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5130,8 +5119,8 @@ MonoBehaviour:
           m_StringArgument: LancheTarde
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 737685896}
-        m_MethodName: GetSavedInfoGerenciadorDietasSliders
+      - m_Target: {fileID: 1418068489}
+        m_MethodName: Show
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5141,8 +5130,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1418068489}
-        m_MethodName: Show
+      - m_Target: {fileID: 737685896}
+        m_MethodName: GetSavedInfoGerenciadorDietasSliders
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11384,12 +11373,6 @@ MonoBehaviour:
   ColacaoIcone: {fileID: 190995594}
   LancheTardeIcone: {fileID: 1168949574}
   CeiaIcone: {fileID: 690723725}
-  v_cafeManhaKcal: 0
-  v_colacaoKcal: 0
-  v_almocoKcal: 0
-  v_lancheTardeKcal: 0
-  v_jantarKcal: 0
-  v_ceiaKcal: 0
 --- !u!1 &827577627
 GameObject:
   m_ObjectHideFlags: 0
@@ -31717,27 +31700,21 @@ MonoBehaviour:
     - m_quantidadeCalPercent: 0.05
       m_tipo: 5
       m_quantidadeDeAlimentosDesteTipo: 1
-  m_prefixosPorPercentual:
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  m_percentuaisRefeicoes:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
   m_kiloCaloriasTotais: 0
-  m_CafeDaManhaKcal: 0
-  m_ColacaoKcal: 0
-  m_AlmocoKcal: 0
-  m_LancheTardeKcal: 0
-  m_JantarKcal: 0
-  m_CeiaKcal: 0
+  m_currentPrefix: 
+  m_prefixosPorPercentual:
+  - m_prefixo: CafeManha
+    m_percentual: 0.15
+  - m_prefixo: Colacao
+    m_percentual: 0.1
+  - m_prefixo: Almoco
+    m_percentual: 0.3
+  - m_prefixo: LancheTarde
+    m_percentual: 0.1
+  - m_prefixo: Jantar
+    m_percentual: 0.25
+  - m_prefixo: Ceia
+    m_percentual: 0.1
 --- !u!1 &1796684628
 GameObject:
   m_ObjectHideFlags: 0
@@ -34603,6 +34580,7 @@ MonoBehaviour:
   m_prefab: {fileID: 114000011827610060, guid: 0fd8d8d8e2aedce40945d9164829a3ed, type: 2}
   m_popupDeTroca: {fileID: 1480957520}
   m_prefixoPossivel: Colacao
+  m_porcentagemDeKilocaloriasTotais: 0.1
   m_nota: {fileID: 1215284832}
   m_quantidadeCal: {fileID: 1989221139}
   m_quantidadeCarb: {fileID: 262730440}

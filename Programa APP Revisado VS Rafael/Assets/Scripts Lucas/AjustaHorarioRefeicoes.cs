@@ -239,7 +239,7 @@ public class AjustaHorarioRefeicoes : MonoBehaviour
                     if (!PlayerPrefs.HasKey("CafeManhaHorarioTexto"))
                     {
                         m_regulaHorario.value = 10;
-                        m_exibeHorarioRefeicao.text = "7:30";
+                        m_exibeHorarioRefeicao.text = "7 : 30";
                         
                     }
                     v_horaMinima = 5;
@@ -253,7 +253,6 @@ public class AjustaHorarioRefeicoes : MonoBehaviour
                     else
                         m_exibeHorarioRefeicao.text = (v_horas.ToString() + " : " + v_minutos.ToString());
                     m_exibeHoraCafeManhaGerenciadorDietas.text = m_exibeHorarioRefeicao.text;
-                    PlayerPrefs.SetString("CafeManhaHorarioTexto", m_exibeHoraCafeManhaGerenciadorDietas.text);
                     break;
                 }
             case "Colacao":
@@ -262,7 +261,7 @@ public class AjustaHorarioRefeicoes : MonoBehaviour
                     if (!PlayerPrefs.HasKey("ColacaoHorarioTexto"))
                     {
                         m_regulaHorario.value = 10;
-                        m_exibeHorarioRefeicao.text = "10:30";
+                        m_exibeHorarioRefeicao.text = "10 : 30";
                     }
                     v_horaMinima = 8;
                     v_minutos = 0;
@@ -275,7 +274,6 @@ public class AjustaHorarioRefeicoes : MonoBehaviour
                     else
                         m_exibeHorarioRefeicao.text = (v_horas.ToString() + " : " + v_minutos.ToString());
                     m_exibeHoraColacaoGerenciadorDietas.text = m_exibeHorarioRefeicao.text;
-                    PlayerPrefs.SetString("ColacaoHorarioTexto", m_exibeHoraColacaoGerenciadorDietas.text);
                     break;
                 }
             case "Almoco":
@@ -284,7 +282,7 @@ public class AjustaHorarioRefeicoes : MonoBehaviour
                     if (!PlayerPrefs.HasKey("ColacaoHorarioTexto"))
                     {
                         m_regulaHorario.value = 10;
-                        m_exibeHorarioRefeicao.text = "12:30";
+                        m_exibeHorarioRefeicao.text = "12 : 30";
                     }
                     v_horaMinima = 11;
                     v_minutos = 0;
@@ -297,7 +295,6 @@ public class AjustaHorarioRefeicoes : MonoBehaviour
                     else
                         m_exibeHorarioRefeicao.text = (v_horas.ToString() + " : " + v_minutos.ToString());
                     m_exibeHoraAlmocoGerenciadorDietas.text = m_exibeHorarioRefeicao.text;
-                    PlayerPrefs.SetString("AlmocoHorarioTexto", m_exibeHoraAlmocoGerenciadorDietas.text);
                     break;
                 }
             case "LancheTarde":
@@ -306,7 +303,7 @@ public class AjustaHorarioRefeicoes : MonoBehaviour
                     if (!PlayerPrefs.HasKey("LancheTardeHorarioTexto"))
                     {
                         m_regulaHorario.value = 6;
-                        m_exibeHorarioRefeicao.text = "15:30";
+                        m_exibeHorarioRefeicao.text = "15 : 30";
                     }
                     v_horaMinima = 14;
                     v_minutos = 0;
@@ -319,7 +316,6 @@ public class AjustaHorarioRefeicoes : MonoBehaviour
                     else
                         m_exibeHorarioRefeicao.text = (v_horas.ToString() + " : " + v_minutos.ToString());
                     m_exibeHoraLancheTardeGerenciadorDietas.text = m_exibeHorarioRefeicao.text;
-                    PlayerPrefs.SetString("LancheTardeHorarioTexto", m_exibeHoraLancheTardeGerenciadorDietas.text);
                     break;
                 }
             case "Jantar":
@@ -328,7 +324,7 @@ public class AjustaHorarioRefeicoes : MonoBehaviour
                     if (!PlayerPrefs.HasKey("JantarHorarioTexto"))
                     {
                         m_regulaHorario.value = 6;
-                        m_exibeHorarioRefeicao.text = "18:30";
+                        m_exibeHorarioRefeicao.text = "18 : 30";
                     }
                     v_horaMinima = 17;
                     v_minutos = 0;
@@ -341,7 +337,6 @@ public class AjustaHorarioRefeicoes : MonoBehaviour
                     else
                         m_exibeHorarioRefeicao.text = (v_horas.ToString() + " : " + v_minutos.ToString());
                     m_exibeHoraJantarGerenciadorDietas.text = m_exibeHorarioRefeicao.text;
-                    PlayerPrefs.SetString("JantarHorarioTexto", m_exibeHoraJantarGerenciadorDietas.text);
                     break;
                 }
             case "Ceia":
@@ -350,7 +345,7 @@ public class AjustaHorarioRefeicoes : MonoBehaviour
                     if (!PlayerPrefs.HasKey("CeiaHorarioTexto"))
                     {
                         m_regulaHorario.value = 6;
-                        m_exibeHorarioRefeicao.text = "18:30";
+                        m_exibeHorarioRefeicao.text = "21 : 30";
                     }
                     v_horaMinima = 20;
                     v_minutos = 0;
@@ -363,22 +358,9 @@ public class AjustaHorarioRefeicoes : MonoBehaviour
                     else
                         m_exibeHorarioRefeicao.text = (v_horas.ToString() + " : " + v_minutos.ToString());
                     m_exibeHoraCeiaGerenciadorDietas.text = m_exibeHorarioRefeicao.text;
-                    PlayerPrefs.SetString("CeiaHorarioTexto", m_exibeHoraCeiaGerenciadorDietas.text);
                     break;
                 }
         }
-    }
-
-    public void GetSavedInfoGerenciadorDietasHorarios()
-    {
-
-        m_exibeHoraCafeManhaGerenciadorDietas.text = PlayerPrefs.GetString("CafeManhaHorarioTexto");
-        m_exibeHoraColacaoGerenciadorDietas.text = PlayerPrefs.GetString("ColacaoHorarioTexto");
-        m_exibeHoraAlmocoGerenciadorDietas.text = PlayerPrefs.GetString("AlmocoHorarioTexto"); 
-        m_exibeHoraLancheTardeGerenciadorDietas.text = PlayerPrefs.GetString("LancheTardeHorarioTexto");
-        m_exibeHoraJantarGerenciadorDietas.text = PlayerPrefs.GetString("JantarHorarioTexto"); 
-        m_exibeHoraCeiaGerenciadorDietas.text = PlayerPrefs.GetString("CeiaHorarioTexto");
-
     }
 
     public void GetSavedInfoGerenciadorDietasSliders()
@@ -386,28 +368,36 @@ public class AjustaHorarioRefeicoes : MonoBehaviour
         switch (m_tituloRefeicao)
         {
             case "CafeManha":
+                m_exibeHoraCafeManhaGerenciadorDietas.text = PlayerPrefs.GetString("CafeManhaHorarioTexto");
                 m_regulaHorario.value = PlayerPrefs.GetInt("CafeManhaHorarioSlider");
-                SetaTextoHorarioRefeicoesComSlider();
+                m_exibeHorarioRefeicao.text = PlayerPrefs.GetString("CafeManhaHorarioTexto");
                 break;
             case "Colacao":
+                m_exibeHoraColacaoGerenciadorDietas.text = PlayerPrefs.GetString("ColacaoHorarioTexto");
                 m_regulaHorario.value = PlayerPrefs.GetInt("ColacaoHorarioSlider");
-                SetaTextoHorarioRefeicoesComSlider();
+                m_exibeHorarioRefeicao.text = PlayerPrefs.GetString("ColacaoHorarioTexto");
+
                 break;
             case "Almoco":
+                m_exibeHoraAlmocoGerenciadorDietas.text = PlayerPrefs.GetString("AlmocoHorarioTexto");
                 m_regulaHorario.value = PlayerPrefs.GetInt("AlmocoHorarioSlider");
-                SetaTextoHorarioRefeicoesComSlider();
+                m_exibeHorarioRefeicao.text = PlayerPrefs.GetString("AlmocoHorarioTexto");
                 break;
             case "LancheTarde":
+                m_exibeHoraLancheTardeGerenciadorDietas.text = PlayerPrefs.GetString("LancheTardeHorarioTexto");
                 m_regulaHorario.value = PlayerPrefs.GetInt("LancheTardeHorarioSlider");
-                SetaTextoHorarioRefeicoesComSlider();
+                m_exibeHorarioRefeicao.text = PlayerPrefs.GetString("LancheTardeHorarioTexto");
                 break;
             case "Jantar":
+                m_exibeHoraJantarGerenciadorDietas.text = PlayerPrefs.GetString("JantarHorarioTexto");
                 m_regulaHorario.value = PlayerPrefs.GetInt("JantarHorarioSlider");
-                SetaTextoHorarioRefeicoesComSlider();
+                m_exibeHorarioRefeicao.text = PlayerPrefs.GetString("JantarHorarioTexto");
+
                 break;
             case "Ceia":
+                m_exibeHoraCeiaGerenciadorDietas.text = PlayerPrefs.GetString("CeiaHorarioTexto");
                 m_regulaHorario.value = PlayerPrefs.GetInt("CeiaHorarioSlider");
-                SetaTextoHorarioRefeicoesComSlider();
+                m_exibeHorarioRefeicao.text = PlayerPrefs.GetString("CeiaHorarioTexto");
                 break;
         }
     }
@@ -421,35 +411,49 @@ public class AjustaHorarioRefeicoes : MonoBehaviour
             case "CafeManha":
                 PlayerPrefs.SetInt("CafeManhaHorarioSlider", Mathf.RoundToInt(m_regulaHorario.value));
                 PlayerPrefs.SetString("CafeManhaHorarioTexto", m_exibeHoraCafeManhaGerenciadorDietas.text);
+                PlayerPrefs.SetString("CafeManhaHorarioTexto", m_exibeHorarioRefeicao.text);
                 break;
             case "Colacao":
                 PlayerPrefs.SetInt("ColacaoHorarioSlider", Mathf.RoundToInt(m_regulaHorario.value));
                 PlayerPrefs.SetString("ColacaoHorarioTexto", m_exibeHoraColacaoGerenciadorDietas.text);
+                PlayerPrefs.SetString("ColacaoHorarioTexto", m_exibeHorarioRefeicao.text);
                 break;
             case "Almoco":
                 PlayerPrefs.SetInt("AlmocoHorarioSlider", Mathf.RoundToInt(m_regulaHorario.value));
                 PlayerPrefs.SetString("AlmocoHorarioTexto", m_exibeHoraAlmocoGerenciadorDietas.text);
+                PlayerPrefs.SetString("AlmocoHorarioTexto", m_exibeHorarioRefeicao.text);
                 break;
             case "LancheTarde":
                 PlayerPrefs.SetInt("LancheTardeHorarioSlider", Mathf.RoundToInt(m_regulaHorario.value));
                 PlayerPrefs.SetString("LancheTardeHorarioTexto", m_exibeHoraLancheTardeGerenciadorDietas.text);
+                PlayerPrefs.SetString("LancheTardeHorarioTexto", m_exibeHorarioRefeicao.text);
                 break;
             case "Jantar":
                 PlayerPrefs.SetInt("JantarHorarioSlider", Mathf.RoundToInt(m_regulaHorario.value));
                 PlayerPrefs.SetString("JantarHorarioTexto", m_exibeHoraJantarGerenciadorDietas.text);
+                PlayerPrefs.SetString("JantarHorarioTexto", m_exibeHorarioRefeicao.text);
                 break;
             case "Ceia":
                 PlayerPrefs.SetInt("CeiaHorarioSlider", Mathf.RoundToInt(m_regulaHorario.value));
                 PlayerPrefs.SetString("CeiaHorarioTexto", m_exibeHoraCeiaGerenciadorDietas.text);
+                PlayerPrefs.SetString("CeiaHorarioTexto", m_exibeHorarioRefeicao.text);
                 break;
         }              
     }
 
+    public void GetInitialInfoHorarioGerenciador()
+    {
+        m_exibeHoraCafeManhaGerenciadorDietas.text = PlayerPrefs.GetString("CafeManhaHorarioTexto");
+        m_exibeHoraColacaoGerenciadorDietas.text = PlayerPrefs.GetString("ColacaoHorarioTexto");
+        m_exibeHoraAlmocoGerenciadorDietas.text = PlayerPrefs.GetString("AlmocoHorarioTexto");
+        m_exibeHoraLancheTardeGerenciadorDietas.text = PlayerPrefs.GetString("LancheTardeHorarioTexto");
+        m_exibeHoraJantarGerenciadorDietas.text = PlayerPrefs.GetString("JantarHorarioTexto");
+        m_exibeHoraCeiaGerenciadorDietas.text = PlayerPrefs.GetString("CeiaHorarioTexto");
+    }
+
     void Start()
     {
-        //GetSavedInfoGerenciadorDietasSliders();
-        SetaTextoHorarioRefeicoesComSlider();
-        //GetSavedInfoGerenciadorDietasHorarios();
+        GetInitialInfoHorarioGerenciador();
     }
 }
 

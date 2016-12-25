@@ -13,113 +13,32 @@ public class RefeicaoManager : Kilt.Singleton<RefeicaoManager>
     [SerializeField]
     List<RefeicaoPredefinida> m_refeicoesDefinitions = new List<RefeicaoPredefinida>();
     [SerializeField]
-    string[] m_prefixosPorPercentual = new string[] { "CafeManha", "Colacao", "Almoco" ,"LancheTarde", "Jantar", "Ceia"};
-    [SerializeField]
-    float[] m_percentuaisRefeicoes = new float[] {0.15f , 0.1f , 0.3f , 0.15f , 0.2f , 0.1f };
-    [SerializeField]
     float m_kiloCaloriasTotais = 0;
     [SerializeField]
     string m_currentPrefix;
+    [SerializeField]
+    List<PrefixoPercentual> m_prefixosPorPercentual = new List<PrefixoPercentual>() {
+        new PrefixoPercentual("CafeManha", 0.15f),
+        new PrefixoPercentual("Colacao", 0.1f),
+        new PrefixoPercentual("Almoco", 0.3f),
+        new PrefixoPercentual("LancheTarde", 0.1f),
+        new PrefixoPercentual("Jantar", 0.25f),
+        new PrefixoPercentual("Ceia", 0.1f)
+    };
 
-    //variaveis teste lucas
-    //Ajustando a % de kcal por refeições de acordo com a funcionalidade Gerenciador de Dietas
 
-    [SerializeField]
-    float m_CafeDaManhaKcal;
-    [SerializeField]
-    float m_ColacaoKcal;
-    [SerializeField]
-    float m_AlmocoKcal;
-    [SerializeField]
-    float m_LancheTardeKcal;
-    [SerializeField]
-    float m_JantarKcal;
-    [SerializeField]
-    float m_CeiaKcal;
-
-    public float CafeDaManhaKcal
+    public string CurrentPrefix
     {
-        get { return m_CafeDaManhaKcal; }
-        set
-        {
-            if (m_CafeDaManhaKcal == value)
+        get { return m_currentPrefix; }
+        set {
+            if (m_currentPrefix == value)
                 return;
-            m_CafeDaManhaKcal = value;
+            m_currentPrefix = value;
             SetDirty();
-            PlayerPrefs.SetFloat("CafeManhaValor", m_CafeDaManhaKcal);
-            PlayerPrefs.Save();
         }
     }
 
-    public float ColacaoKcal
-    {
-        get { return m_ColacaoKcal; }
-        set
-        {
-            if (m_ColacaoKcal == value)
-                return;
-            m_ColacaoKcal = value;
-            SetDirty();
-            PlayerPrefs.SetFloat("ColacaoValor", m_ColacaoKcal);
-            PlayerPrefs.Save();
-        }
-    }
 
-    public float AlmocoKcal
-    {
-        get { return m_AlmocoKcal; }
-        set
-        {
-            if (m_AlmocoKcal == value)
-                return;
-            m_AlmocoKcal = value;
-            SetDirty();
-            PlayerPrefs.SetFloat("AlmocoValor", m_AlmocoKcal);
-            PlayerPrefs.Save();
-        }
-    }
-
-    public float LancheTardeKcal
-    {
-        get { return m_LancheTardeKcal; }
-        set
-        {
-            if (m_LancheTardeKcal == value)
-                return;
-            m_LancheTardeKcal = value;
-            SetDirty();
-            PlayerPrefs.SetFloat("LancheTardeValor", m_LancheTardeKcal);
-            PlayerPrefs.Save();
-        }
-    }
-
-    public float JantarKcal
-    {
-        get { return m_JantarKcal; }
-        set
-        {
-            if (m_JantarKcal == value)
-                return;
-            m_JantarKcal = value;
-            SetDirty();
-            PlayerPrefs.SetFloat("JantarValor", m_JantarKcal);
-            PlayerPrefs.Save();
-        }
-    }
-
-    public float CeiaKcal
-    {
-        get { return m_CeiaKcal; }
-        set
-        {
-            if (m_CeiaKcal == value)
-                return;
-            m_CeiaKcal = value;
-            SetDirty();
-            PlayerPrefs.SetFloat("CeiaValor", m_CeiaKcal);
-            PlayerPrefs.Save();
-        }
-    }
 
     public bool IsDirty
     {
@@ -139,17 +58,9 @@ public class RefeicaoManager : Kilt.Singleton<RefeicaoManager>
         _isDirty = true;
     }
 
-    //SerializeField para as variáveis que irão aparecer no Inspector
-    //Variaveis com m_: variáveis do manager.
-
     #endregion
 
     #region Public Properties
-
-    //Properties: get: executado quando a propriedade é lida, set: executado quando se deseja atribuir um novo valor para a propriedade
-    //properties nao sao variaveis, portanto nao podem ser referenciadas.
-
-    //properties teste
 
     public float KiloCaloriasTotais
     {
@@ -157,13 +68,7 @@ public class RefeicaoManager : Kilt.Singleton<RefeicaoManager>
         set { m_kiloCaloriasTotais = value; }
     }
 
-    public float []PercentuaisRefeicoes
-    {
-        get { return m_percentuaisRefeicoes; }
-        set { m_percentuaisRefeicoes = value; }
-    }
-
-    public string[] PrefixosPorPercentual
+    public List<PrefixoPercentual> PrefixosPorPercentual
     {
         get { return m_prefixosPorPercentual; }
         set { m_prefixosPorPercentual = value; }
@@ -246,14 +151,11 @@ public class RefeicaoManager : Kilt.Singleton<RefeicaoManager>
     }
 
 
-    //teste lucas
-
     protected virtual void Update()
     {
         if (_isDirty)
         {
             SetPercentTodasAsRefeicoes();
-            SalvaInfoGerenciadorDietas();
             _isDirty = false;
             if (OnValueChanged != null)
                 OnValueChanged();
@@ -262,100 +164,67 @@ public class RefeicaoManager : Kilt.Singleton<RefeicaoManager>
 
 
 
-    //FUNCAO PARA SALVAR TODAS AS INFORMACOES DO GERENCIADOR DE DIETAS, DEVE SER ATUALIZADA NO START OU AWAKE
-    public void SalvaInfoGerenciadorDietas()
-    {
-        if (PlayerPrefs.HasKey("CafeManhaValor"))
-            m_CafeDaManhaKcal = PlayerPrefs.GetFloat("CafeManhaValor");
-        else
-            m_CafeDaManhaKcal = 0.15f;
-
-        if (PlayerPrefs.HasKey("ColacaoValor"))
-            m_ColacaoKcal = PlayerPrefs.GetFloat("ColacaoValor");
-        else
-            m_ColacaoKcal = 0.10f;
-
-        if (PlayerPrefs.HasKey("AlmocoValor"))
-            m_AlmocoKcal = PlayerPrefs.GetFloat("AlmocoValor");
-        else
-            m_AlmocoKcal = 0.3f;
-
-        if (PlayerPrefs.HasKey("LancheTardeValor"))
-            m_LancheTardeKcal = PlayerPrefs.GetFloat("LancheTardeValor");
-        else
-            m_LancheTardeKcal = 0.15f;
-
-        if (PlayerPrefs.HasKey("JantarValor"))
-            m_JantarKcal = PlayerPrefs.GetFloat("JantarValor");
-        else
-            m_JantarKcal = 0.2f;
-
-        if (PlayerPrefs.HasKey("CeiaValor"))
-            m_CeiaKcal = PlayerPrefs.GetFloat("CeiaValor");
-        else
-            m_CeiaKcal = 0.1f;
-        PlayerPrefs.Save();
-        SetDirty();
-    }
-
     //seta o percentual de todas as refeicoes conforme a formula definida.
     public void SetPercentTodasAsRefeicoes()
     {
-        float m_SomatorioKcalPercent;
-        m_SomatorioKcalPercent = m_CafeDaManhaKcal + m_ColacaoKcal + m_AlmocoKcal + m_LancheTardeKcal + m_JantarKcal + m_CeiaKcal;
+        float m_SomatorioKcalPercent=0;
 
-
-        m_CafeDaManhaKcal = m_CafeDaManhaKcal * (1 + ((0.98333f - m_SomatorioKcalPercent) / m_SomatorioKcalPercent));
-        foreach (string v_prefixoPorPorcentagemCafeManha in PrefixosPorPercentual)
+        foreach (var v_prefixoPorPorcentagem in m_prefixosPorPercentual)
         {
-            if (v_prefixoPorPorcentagemCafeManha.Contains("CafeManha"))
+            m_SomatorioKcalPercent += v_prefixoPorPorcentagem.Percentual;
+        }
+
+        foreach (var v_prefixoPorPorcentagem in m_prefixosPorPercentual)
+        {
+            if (v_prefixoPorPorcentagem.Prefixo.Contains("CafeManha"))
             {
-                RefeicaoManager.Instance.PercentuaisRefeicoes[2] = m_CafeDaManhaKcal;
+                v_prefixoPorPorcentagem.Percentual = v_prefixoPorPorcentagem.Percentual*(1 + ((0.98333f - m_SomatorioKcalPercent) / m_SomatorioKcalPercent));
+                PlayerPrefs.SetFloat("CafeManhaKcal", v_prefixoPorPorcentagem.Percentual);
             }
         }
 
-        m_ColacaoKcal = m_ColacaoKcal * (1 + ((0.98333f - m_SomatorioKcalPercent) / m_SomatorioKcalPercent));
-        foreach (string v_prefixoPorPorcentagemColacao in RefeicaoManager.Instance.PrefixosPorPercentual)
+        foreach (var v_prefixoPorPorcentagem in m_prefixosPorPercentual)
         {
-            if (v_prefixoPorPorcentagemColacao.Contains("Colacao"))
+            if (v_prefixoPorPorcentagem.Prefixo.Contains("Colacao"))
             {
-                RefeicaoManager.Instance.PercentuaisRefeicoes[2] = m_ColacaoKcal;
+                v_prefixoPorPorcentagem.Percentual = v_prefixoPorPorcentagem.Percentual * (1 + ((0.98333f - m_SomatorioKcalPercent) / m_SomatorioKcalPercent));
+                PlayerPrefs.SetFloat("ColacaoKcal", v_prefixoPorPorcentagem.Percentual);
             }
         }
 
-        m_AlmocoKcal = m_AlmocoKcal * (1 + ((0.98333f - m_SomatorioKcalPercent) / m_SomatorioKcalPercent));
-        foreach (string v_prefixoPorPorcentagemAlmoco in RefeicaoManager.Instance.PrefixosPorPercentual)
+        foreach (var v_prefixoPorPorcentagem in m_prefixosPorPercentual)
         {
-            if (v_prefixoPorPorcentagemAlmoco.Contains("Almoco"))
+            if (v_prefixoPorPorcentagem.Prefixo.Contains("Almoco"))
             {
-                RefeicaoManager.Instance.PercentuaisRefeicoes[3] = m_AlmocoKcal;
+                v_prefixoPorPorcentagem.Percentual = v_prefixoPorPorcentagem.Percentual * (1 + ((0.98333f - m_SomatorioKcalPercent) / m_SomatorioKcalPercent));
+                PlayerPrefs.SetFloat("AlmocoKcal", v_prefixoPorPorcentagem.Percentual);
             }
         }
 
-        m_LancheTardeKcal = m_LancheTardeKcal * (1 + ((0.98333f - m_SomatorioKcalPercent) / m_SomatorioKcalPercent));
-        foreach (string v_prefixoPorPorcentagemLancheTarde in RefeicaoManager.Instance.PrefixosPorPercentual)
+        foreach (var v_prefixoPorPorcentagem in m_prefixosPorPercentual)
         {
-            if (v_prefixoPorPorcentagemLancheTarde.Contains("LancheTarde"))
+            if (v_prefixoPorPorcentagem.Prefixo.Contains("LancheTarde"))
             {
-                RefeicaoManager.Instance.PercentuaisRefeicoes[4] = m_LancheTardeKcal;
+                v_prefixoPorPorcentagem.Percentual = v_prefixoPorPorcentagem.Percentual * (1 + ((0.98333f - m_SomatorioKcalPercent) / m_SomatorioKcalPercent));
+                PlayerPrefs.SetFloat("LancheTardeKcal", v_prefixoPorPorcentagem.Percentual);
             }
         }
 
-        m_JantarKcal = m_JantarKcal * (1 + ((0.98333f - m_SomatorioKcalPercent) / m_SomatorioKcalPercent));
-        foreach (var v_prefixoPorPorcentagemJantar in RefeicaoManager.Instance.PrefixosPorPercentual)
+        foreach (var v_prefixoPorPorcentagem in m_prefixosPorPercentual)
         {
-            if (v_prefixoPorPorcentagemJantar.Contains("Jantar"))
+            if (v_prefixoPorPorcentagem.Prefixo.Contains("Jantar"))
             {
-                RefeicaoManager.Instance.PercentuaisRefeicoes[4] = m_JantarKcal;
+                v_prefixoPorPorcentagem.Percentual = v_prefixoPorPorcentagem.Percentual * (1 + ((0.98333f - m_SomatorioKcalPercent) / m_SomatorioKcalPercent));
+                PlayerPrefs.SetFloat("JantarKcal", v_prefixoPorPorcentagem.Percentual);
             }
         }
 
-        m_CeiaKcal = m_CeiaKcal * (1 + ((0.98333f - m_SomatorioKcalPercent) / m_SomatorioKcalPercent));
-        foreach (var v_prefixoPorPorcentagemCeia in RefeicaoManager.Instance.PrefixosPorPercentual)
+        foreach (var v_prefixoPorPorcentagem in m_prefixosPorPercentual)
         {
-            if (v_prefixoPorPorcentagemCeia.Contains("Ceia"))
+            if (v_prefixoPorPorcentagem.Prefixo.Contains("Ceia"))
             {
-                RefeicaoManager.Instance.PercentuaisRefeicoes[5] = m_CeiaKcal;
+                v_prefixoPorPorcentagem.Percentual = v_prefixoPorPorcentagem.Percentual * (1 + ((0.98333f - m_SomatorioKcalPercent) / m_SomatorioKcalPercent));
+                PlayerPrefs.SetFloat("CeiaKcal", v_prefixoPorPorcentagem.Percentual);
             }
         }
         SetDirty();
@@ -363,8 +232,71 @@ public class RefeicaoManager : Kilt.Singleton<RefeicaoManager>
 
     void Start()
     {
+        getInfoGerenciadorDietas();
         SetPercentTodasAsRefeicoes();
-        SalvaInfoGerenciadorDietas();
+    }
+
+    void getInfoGerenciadorDietas()
+    {
+        if (PlayerPrefs.HasKey("CafeManhaKcal")) {
+            foreach (var v_prefixoPorPorcentagem in m_prefixosPorPercentual)
+            {
+                if (v_prefixoPorPorcentagem.Prefixo.Contains("CafeManha"))
+                {
+                    v_prefixoPorPorcentagem.Percentual = PlayerPrefs.GetFloat("CafeManhaKcal");
+                }
+            }
+        }
+        if (PlayerPrefs.HasKey("ColacaoKcal"))
+        {
+            foreach (var v_prefixoPorPorcentagem in m_prefixosPorPercentual)
+            {
+                if (v_prefixoPorPorcentagem.Prefixo.Contains("Colacao"))
+                {
+                    v_prefixoPorPorcentagem.Percentual = PlayerPrefs.GetFloat("ColacaoKcal");
+                }
+            }
+        }
+        if (PlayerPrefs.HasKey("AlmocoKcal"))
+        {
+            foreach (var v_prefixoPorPorcentagem in m_prefixosPorPercentual)
+            {
+                if (v_prefixoPorPorcentagem.Prefixo.Contains("Almoco"))
+                {
+                    v_prefixoPorPorcentagem.Percentual = PlayerPrefs.GetFloat("AlmocoKcal");
+                }
+            }
+        }
+        if (PlayerPrefs.HasKey("LancheTardeKcal"))
+        {
+            foreach (var v_prefixoPorPorcentagem in m_prefixosPorPercentual)
+            {
+                if (v_prefixoPorPorcentagem.Prefixo.Contains("LancheTarde"))
+                {
+                    v_prefixoPorPorcentagem.Percentual = PlayerPrefs.GetFloat("LancheTardeKcal");
+                }
+            }
+        }
+        if (PlayerPrefs.HasKey("JantarKcal"))
+        {
+            foreach (var v_prefixoPorPorcentagem in m_prefixosPorPercentual)
+            {
+                if (v_prefixoPorPorcentagem.Prefixo.Contains("Jantar"))
+                {
+                    v_prefixoPorPorcentagem.Percentual = PlayerPrefs.GetFloat("JantarKcal");
+                }
+            }
+        }
+        if (PlayerPrefs.HasKey("CeiaKcal"))
+        {
+            foreach (var v_prefixoPorPorcentagem in m_prefixosPorPercentual)
+            {
+                if (v_prefixoPorPorcentagem.Prefixo.Contains("Ceia"))
+                {
+                    v_prefixoPorPorcentagem.Percentual = PlayerPrefs.GetFloat("CeiaKcal");
+                }
+            }
+        }
     }
 }
 
