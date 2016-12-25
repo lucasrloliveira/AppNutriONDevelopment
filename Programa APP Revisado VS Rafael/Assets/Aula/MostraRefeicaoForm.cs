@@ -32,6 +32,8 @@ public class MostraRefeicaoForm : MonoBehaviour
     [SerializeField]
     Text m_key = null;
 
+    [SerializeField]
+    string m_currentPrefix;
 
     RefeicaoPredefinida _currentRefeicao = null;
 
@@ -56,10 +58,14 @@ public class MostraRefeicaoForm : MonoBehaviour
                     else if (v_prefixoPorPorcentagem.Contains("Ceia"))
                         return RefeicaoManager.Instance.PercentuaisRefeicoes[5];
                     else
-                    return 0.1f;
+                    {
+                        Debug.Log("o prefixo é:" + v_prefixoPorPorcentagem);
+                        return 0.1f;
+                    }
+                    
                 }
             }
-            return 0.1f;
+            return 0.2f;
         }
     }
 

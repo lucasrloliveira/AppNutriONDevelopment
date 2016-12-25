@@ -5303,12 +5303,6 @@ MonoBehaviour:
   m_CalculoEnergeticoDiario: 0
   m_GastoMetabolicoBasal: 0
   m_AceleraEmagrecimento: 0
-  m_CafeDaManhaKcal: 0
-  m_ColacaoKcal: 0
-  m_AlmocoKcal: 0
-  m_LancheTardeKcal: 0.15
-  m_JantarKcal: 0
-  m_CeiaKcal: 0
   m_SomatorioKcalPercent: 0
 --- !u!1 &367037280
 GameObject:
@@ -31730,7 +31724,20 @@ MonoBehaviour:
   - 
   - 
   - 
+  m_percentuaisRefeicoes:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
   m_kiloCaloriasTotais: 0
+  m_CafeDaManhaKcal: 0
+  m_ColacaoKcal: 0
+  m_AlmocoKcal: 0
+  m_LancheTardeKcal: 0
+  m_JantarKcal: 0
+  m_CeiaKcal: 0
 --- !u!1 &1796684628
 GameObject:
   m_ObjectHideFlags: 0
@@ -34603,6 +34610,7 @@ MonoBehaviour:
   m_quantidadeGord: {fileID: 1796684630}
   m_kcalCorretaPrato: {fileID: 544253515}
   m_key: {fileID: 0}
+  m_currentPrefix: 
 --- !u!114 &1976724609
 MonoBehaviour:
   m_ObjectHideFlags: 0

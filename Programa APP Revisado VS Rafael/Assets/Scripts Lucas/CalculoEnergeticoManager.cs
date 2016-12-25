@@ -25,21 +25,6 @@ public class CalculoEnergeticoManager : Kilt.Singleton<CalculoEnergeticoManager>
     [SerializeField]
     int m_AceleraEmagrecimento;
 
-    //Ajustando a % de kcal por refeições de acordo com a funcionalidade Gerenciador de Dietas
-
-    [SerializeField]
-    float m_CafeDaManhaKcal;
-    [SerializeField]
-    float m_ColacaoKcal;
-    [SerializeField]
-    float m_AlmocoKcal;
-    [SerializeField]
-    float m_LancheTardeKcal;
-    [SerializeField]
-    float m_JantarKcal;
-    [SerializeField]
-    float m_CeiaKcal;
-
     [SerializeField]
     float m_SomatorioKcalPercent = 0;
 
@@ -132,85 +117,6 @@ public class CalculoEnergeticoManager : Kilt.Singleton<CalculoEnergeticoManager>
         }
     }
 
-    public float CafeDaManhaKcal
-    {
-        get { return m_CafeDaManhaKcal; }
-        set {
-            if (m_CafeDaManhaKcal == value)
-                return;
-            m_CafeDaManhaKcal = value;
-            SetDirty();
-            PlayerPrefs.SetFloat("CafeManhaValor", m_CafeDaManhaKcal);
-            PlayerPrefs.Save();
-        }
-    }
-
-    public float ColacaoKcal
-    {
-        get { return m_ColacaoKcal; }
-        set
-        {
-            if (m_ColacaoKcal == value)
-                return;
-            m_ColacaoKcal = value;
-            SetDirty();
-            PlayerPrefs.SetFloat("ColacaoValor", m_ColacaoKcal);
-            PlayerPrefs.Save();
-        }
-    }
-
-    public float AlmocoKcal
-    {
-        get { return m_AlmocoKcal; }
-        set {
-            if (m_AlmocoKcal == value)
-                return;
-            m_AlmocoKcal = value;
-            SetDirty();
-            PlayerPrefs.SetFloat("AlmocoValor", m_AlmocoKcal);
-            PlayerPrefs.Save();
-        }
-    }
-
-    public float LancheTardeKcal
-    {
-        get { return m_LancheTardeKcal; }
-        set {
-            if (m_LancheTardeKcal == value)
-                return;
-            m_LancheTardeKcal = value;
-            SetDirty();
-            PlayerPrefs.SetFloat("LancheTardeValor", m_LancheTardeKcal);
-            PlayerPrefs.Save();
-        }
-    }
-
-    public float JantarKcal
-    {
-        get { return m_JantarKcal; }
-        set {
-            if (m_JantarKcal == value)
-                return;
-            m_JantarKcal = value;
-            SetDirty();
-            PlayerPrefs.SetFloat("JantarValor", m_JantarKcal);
-            PlayerPrefs.Save();
-        }
-    }
-
-    public float CeiaKcal
-    {
-        get { return m_CeiaKcal; }
-        set {
-            if (m_CeiaKcal == value)
-                return;
-            m_CeiaKcal = value;
-            SetDirty();
-            PlayerPrefs.SetFloat("CeiaValor", m_CeiaKcal);
-            PlayerPrefs.Save();
-        }
-    }
-
     public int AceleraEmagrecimento
     {
         get { return m_AceleraEmagrecimento; }
@@ -258,7 +164,6 @@ public class CalculoEnergeticoManager : Kilt.Singleton<CalculoEnergeticoManager>
             SetValorEnergeticoTotal();
             EmagrecimentoAcelerado();
             SalvaInfoIniciais();
-            SalvaInfoGerenciadorDietas();
             _isDirty = false;
             if (OnValueChanged != null)
                 OnValueChanged();
@@ -268,110 +173,6 @@ public class CalculoEnergeticoManager : Kilt.Singleton<CalculoEnergeticoManager>
     #endregion
 
     #region Helper Functions
-
-    #region FUNCIONALIDADES DO GERENCIADOR DE DIETAS
-
-
-    //seta o percentual de todas as refeicoes conforme a formula definida.
-    public void SetPercentTodasAsRefeicoes()
-    {
-
-        m_SomatorioKcalPercent = m_CafeDaManhaKcal + m_ColacaoKcal + m_AlmocoKcal + m_LancheTardeKcal + m_JantarKcal + m_CeiaKcal;
-
-
-        m_CafeDaManhaKcal = m_CafeDaManhaKcal * (1 + ((0.98333f - m_SomatorioKcalPercent) / m_SomatorioKcalPercent));
-        foreach (string v_prefixoPorPorcentagemCafeManha in RefeicaoManager.Instance.PrefixosPorPercentual)
-        {
-            if (v_prefixoPorPorcentagemCafeManha.Contains("CafeManha"))
-            {
-                RefeicaoManager.Instance.PercentuaisRefeicoes[2] = m_CafeDaManhaKcal;
-            }
-        }
-
-        m_ColacaoKcal = m_ColacaoKcal * (1 + ((0.98333f - m_SomatorioKcalPercent) / m_SomatorioKcalPercent));
-        foreach (string v_prefixoPorPorcentagemColacao in RefeicaoManager.Instance.PrefixosPorPercentual)
-        {
-            if (v_prefixoPorPorcentagemColacao.Contains("Colacao"))
-            {
-                RefeicaoManager.Instance.PercentuaisRefeicoes[2] = m_ColacaoKcal;
-            }
-        }
-
-        m_AlmocoKcal = m_AlmocoKcal * (1 + ((0.98333f - m_SomatorioKcalPercent) / m_SomatorioKcalPercent));
-        foreach (string v_prefixoPorPorcentagemAlmoco in RefeicaoManager.Instance.PrefixosPorPercentual)
-        {
-            if (v_prefixoPorPorcentagemAlmoco.Contains("Almoco"))
-            {
-                RefeicaoManager.Instance.PercentuaisRefeicoes[3] = m_AlmocoKcal;
-            }
-        }
-
-        m_LancheTardeKcal = m_LancheTardeKcal * (1 + ((0.98333f - m_SomatorioKcalPercent) / m_SomatorioKcalPercent));
-        foreach (string v_prefixoPorPorcentagemLancheTarde in RefeicaoManager.Instance.PrefixosPorPercentual)
-        {
-            if (v_prefixoPorPorcentagemLancheTarde.Contains("LancheTarde"))
-            {
-                RefeicaoManager.Instance.PercentuaisRefeicoes[4] = m_LancheTardeKcal;
-            }
-        }
-
-        m_JantarKcal = m_JantarKcal * (1 + ((0.98333f - m_SomatorioKcalPercent) / m_SomatorioKcalPercent));
-        foreach (var v_prefixoPorPorcentagemJantar in RefeicaoManager.Instance.PrefixosPorPercentual)
-        {
-            if (v_prefixoPorPorcentagemJantar.Contains("Jantar"))
-            {
-                RefeicaoManager.Instance.PercentuaisRefeicoes[4] = m_JantarKcal;
-            }
-        }
-
-        m_CeiaKcal = m_CeiaKcal * (1 + ((0.98333f - m_SomatorioKcalPercent) / m_SomatorioKcalPercent));
-        foreach (var v_prefixoPorPorcentagemCeia in RefeicaoManager.Instance.PrefixosPorPercentual)
-        {
-            if (v_prefixoPorPorcentagemCeia.Contains("Ceia"))
-            {
-                RefeicaoManager.Instance.PercentuaisRefeicoes[5] = m_CeiaKcal;
-            }
-        }
-        SetDirty();
-    }
-
-    #endregion
-
-    //FUNCAO PARA SALVAR TODAS AS INFORMACOES DO GERENCIADOR DE DIETAS, DEVE SER ATUALIZADA NO START OU AWAKE
-    public void SalvaInfoGerenciadorDietas()
-    {
-        if(PlayerPrefs.HasKey("CafeManhaValor"))       
-            m_CafeDaManhaKcal = PlayerPrefs.GetFloat("CafeManhaValor");
-        else            
-            m_CafeDaManhaKcal = 0.15f;
-
-        if (PlayerPrefs.HasKey("ColacaoValor"))            
-            m_ColacaoKcal = PlayerPrefs.GetFloat("ColacaoValor");
-        else
-            m_ColacaoKcal = 0.10f;
-
-        if(PlayerPrefs.HasKey("AlmocoValor"))
-            m_AlmocoKcal = PlayerPrefs.GetFloat("AlmocoValor");
-        else
-            m_AlmocoKcal = 0.3f;
-
-        if (PlayerPrefs.HasKey("LancheTardeValor"))
-            m_LancheTardeKcal = PlayerPrefs.GetFloat("LancheTardeValor");
-        else
-            m_LancheTardeKcal = 0.15f;
-
-        if (PlayerPrefs.HasKey("JantarValor"))
-            m_JantarKcal = PlayerPrefs.GetFloat("JantarValor");
-        else
-            m_JantarKcal = 0.2f;
-
-        if (PlayerPrefs.HasKey("CeiaValor"))
-            m_CeiaKcal = PlayerPrefs.GetFloat("CeiaValor");
-        else
-            m_CeiaKcal = 0.1f;
-        PlayerPrefs.Save();
-        SetDirty();
-    }
 
     //FUNCAO PARA SALVAR TODAS AS INFORMACOES NECESSARIAS PARA O CALCULO ENERGETICO, DEVE SER CHAMADA NO METODO START OU AWAKE
 
@@ -514,9 +315,7 @@ public class CalculoEnergeticoManager : Kilt.Singleton<CalculoEnergeticoManager>
     {
         SetValorEnergeticoTotal();
         GetValorCaloricoInicial();
-        SetPercentTodasAsRefeicoes();
         EmagrecimentoAcelerado();
-        SalvaInfoGerenciadorDietas();
         SalvaInfoIniciais();
     }
 

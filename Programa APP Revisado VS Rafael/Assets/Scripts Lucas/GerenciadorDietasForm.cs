@@ -41,13 +41,13 @@ public class GerenciadorDietasForm : MonoBehaviour {
     protected virtual void OnEnable()
     {
         //Registra Callback do manager
-        CalculoEnergeticoManager.OnValueChanged += MyOnValueChanged;
+        RefeicaoManager.OnValueChanged += MyOnValueChanged;
     }
 
     protected virtual void OnDisable()
     {
         //Desregistra Callback do manager
-        CalculoEnergeticoManager.OnValueChanged -= MyOnValueChanged;
+        RefeicaoManager.OnValueChanged -= MyOnValueChanged;
     }
 
     protected virtual void Update()
@@ -68,27 +68,27 @@ public class GerenciadorDietasForm : MonoBehaviour {
     {
         if (CafeManhaPeso != null)
         {
-            CalculoEnergeticoManager.Instance.CafeDaManhaKcal = v_cafeManhaKcal;
+            RefeicaoManager.Instance.CafeDaManhaKcal = v_cafeManhaKcal;
         }
         if (ColacaoPeso != null)
         {
-            CalculoEnergeticoManager.Instance.ColacaoKcal = v_colacaoKcal;
+            RefeicaoManager.Instance.ColacaoKcal = v_colacaoKcal;
         }
         if (AlmocoPeso != null)
         {
-            CalculoEnergeticoManager.Instance.AlmocoKcal = v_almocoKcal;
+            RefeicaoManager.Instance.AlmocoKcal = v_almocoKcal;
         }
         if (LancheTardePeso != null)
         {
-            CalculoEnergeticoManager.Instance.LancheTardeKcal = v_lancheTardeKcal;
+            RefeicaoManager.Instance.LancheTardeKcal = v_lancheTardeKcal;
         }
         if (JantarPeso != null)
         {
-            CalculoEnergeticoManager.Instance.JantarKcal = v_jantarKcal;
+            RefeicaoManager.Instance.JantarKcal = v_jantarKcal;
         }
         if (CeiaPeso != null)
         {
-            CalculoEnergeticoManager.Instance.CeiaKcal = v_ceiaKcal;
+            RefeicaoManager.Instance.CeiaKcal = v_ceiaKcal;
         }
     }
 
@@ -118,22 +118,22 @@ public class GerenciadorDietasForm : MonoBehaviour {
             if (CafeManhaPeso.value == 0)
             {
                 v_cafeManhaKcal = 0.1f;
-                CalculoEnergeticoManager.Instance.CafeDaManhaKcal = v_cafeManhaKcal;
-                Debug.Log("kcal cafe manha" + CalculoEnergeticoManager.Instance.CafeDaManhaKcal);
+                RefeicaoManager.Instance.CafeDaManhaKcal = v_cafeManhaKcal;
+                Debug.Log("kcal cafe manha" + RefeicaoManager.Instance.CafeDaManhaKcal);
                 SetDirty();
             }
             else if (CafeManhaPeso.value == 1)
             {
                 v_cafeManhaKcal = 0.15f;
-                CalculoEnergeticoManager.Instance.CafeDaManhaKcal = v_cafeManhaKcal;
-                Debug.Log("kcal cafe manha" + CalculoEnergeticoManager.Instance.CafeDaManhaKcal);
+                RefeicaoManager.Instance.CafeDaManhaKcal = v_cafeManhaKcal;
+                Debug.Log("kcal cafe manha" + RefeicaoManager.Instance.CafeDaManhaKcal);
                 SetDirty();
             }
             else if (CafeManhaPeso.value == 2)
             {
                 v_cafeManhaKcal = 0.2f;
-                CalculoEnergeticoManager.Instance.CafeDaManhaKcal = v_cafeManhaKcal;
-                Debug.Log("kcal cafe manha" + CalculoEnergeticoManager.Instance.CafeDaManhaKcal);
+                RefeicaoManager.Instance.CafeDaManhaKcal = v_cafeManhaKcal;
+                Debug.Log("kcal cafe manha" + RefeicaoManager.Instance.CafeDaManhaKcal);
                 SetDirty();
             }
 
@@ -148,7 +148,7 @@ public class GerenciadorDietasForm : MonoBehaviour {
             if (ColacaoPeso.value == 0)
             {
                 v_colacaoKcal = 0f;
-                CalculoEnergeticoManager.Instance.ColacaoKcal = v_colacaoKcal;
+                RefeicaoManager.Instance.ColacaoKcal = v_colacaoKcal;
                 ColacaoIcone.SetActive(false);
                 PlayerPrefs.SetString("StateColacao", "ColacaoOFF");
                 SetDirty();
@@ -156,7 +156,7 @@ public class GerenciadorDietasForm : MonoBehaviour {
             else if (ColacaoPeso.value == 1)
             {
                 v_colacaoKcal = 0.08f;
-                CalculoEnergeticoManager.Instance.ColacaoKcal = v_colacaoKcal;
+                RefeicaoManager.Instance.ColacaoKcal = v_colacaoKcal;
                 ColacaoIcone.SetActive(true);
                 PlayerPrefs.SetString("StateColacao", "ColacaoON");
                 SetDirty();
@@ -164,7 +164,7 @@ public class GerenciadorDietasForm : MonoBehaviour {
             else if (ColacaoPeso.value == 2)
             {
                 v_colacaoKcal = 0.1f;
-                CalculoEnergeticoManager.Instance.ColacaoKcal = v_colacaoKcal;
+                RefeicaoManager.Instance.ColacaoKcal = v_colacaoKcal;
                 ColacaoIcone.SetActive(true);
                 PlayerPrefs.SetString("StateColacao", "ColacaoON");
                 SetDirty();
@@ -172,7 +172,7 @@ public class GerenciadorDietasForm : MonoBehaviour {
             else if (ColacaoPeso.value == 3)
             {
                 v_colacaoKcal = 1.2f;
-                CalculoEnergeticoManager.Instance.ColacaoKcal = v_colacaoKcal;
+                RefeicaoManager.Instance.ColacaoKcal = v_colacaoKcal;
                 ColacaoIcone.SetActive(true);
                 PlayerPrefs.SetString("StateColacao", "ColacaoON");
                 SetDirty();
@@ -190,19 +190,19 @@ public class GerenciadorDietasForm : MonoBehaviour {
             if (AlmocoPeso.value == 0)
             {
                 v_almocoKcal = 0.2f;
-                CalculoEnergeticoManager.Instance.AlmocoKcal = v_almocoKcal;
+                RefeicaoManager.Instance.AlmocoKcal = v_almocoKcal;
                 SetDirty();
             }
             else if (AlmocoPeso.value == 1)
             {
                 v_almocoKcal = 0.3f;
-                CalculoEnergeticoManager.Instance.AlmocoKcal = v_almocoKcal;
+                RefeicaoManager.Instance.AlmocoKcal = v_almocoKcal;
                 SetDirty();
             }
             else if (AlmocoPeso.value == 2)
             {
                 v_almocoKcal = 0.4f;
-                CalculoEnergeticoManager.Instance.AlmocoKcal = v_almocoKcal;
+                RefeicaoManager.Instance.AlmocoKcal = v_almocoKcal;
                 SetDirty();
             }
             PlayerPrefs.SetInt("AlmocoPeso", AlmocoPeso.value);
@@ -218,7 +218,7 @@ public class GerenciadorDietasForm : MonoBehaviour {
             if (LancheTardePeso.value == 0)
             {
                 v_lancheTardeKcal = 0;
-                CalculoEnergeticoManager.Instance.LancheTardeKcal = v_lancheTardeKcal;
+                RefeicaoManager.Instance.LancheTardeKcal = v_lancheTardeKcal;
                 LancheTardeIcone.SetActive(false);
                 PlayerPrefs.SetString("StateLancheTarde", "LancheTardeOFF");
                 PlayerPrefs.SetInt("LancheTardePeso", LancheTardePeso.value);
@@ -227,7 +227,7 @@ public class GerenciadorDietasForm : MonoBehaviour {
             else if (LancheTardePeso.value == 1)
             {
                 v_lancheTardeKcal = 0.067f;
-                CalculoEnergeticoManager.Instance.LancheTardeKcal = v_lancheTardeKcal;
+                RefeicaoManager.Instance.LancheTardeKcal = v_lancheTardeKcal;
                 LancheTardeIcone.SetActive(true);
                 PlayerPrefs.SetString("StateLancheTarde", "LancheTardeON");
                 PlayerPrefs.SetInt("LancheTardePeso", LancheTardePeso.value);
@@ -236,7 +236,7 @@ public class GerenciadorDietasForm : MonoBehaviour {
             else if (LancheTardePeso.value == 2)
             {
                 v_lancheTardeKcal = 0.133f;
-                CalculoEnergeticoManager.Instance.LancheTardeKcal = v_lancheTardeKcal;
+                RefeicaoManager.Instance.LancheTardeKcal = v_lancheTardeKcal;
                 LancheTardeIcone.SetActive(true);
                 PlayerPrefs.SetString("StateLancheTarde", "LancheTardeON");
                 PlayerPrefs.SetInt("LancheTardePeso", LancheTardePeso.value);
@@ -245,7 +245,7 @@ public class GerenciadorDietasForm : MonoBehaviour {
             else if (LancheTardePeso.value == 3)
             {
                 v_lancheTardeKcal = 0.2f;
-                CalculoEnergeticoManager.Instance.LancheTardeKcal = v_lancheTardeKcal;
+                RefeicaoManager.Instance.LancheTardeKcal = v_lancheTardeKcal;
                 LancheTardeIcone.SetActive(true);
                 PlayerPrefs.SetString("StateLancheTarde", "LancheTardeON");
                 PlayerPrefs.SetInt("LancheTardePeso", LancheTardePeso.value);
@@ -263,21 +263,21 @@ public class GerenciadorDietasForm : MonoBehaviour {
             if (JantarPeso.value == 0)
             {
                 v_jantarKcal = 0.15f;
-                CalculoEnergeticoManager.Instance.JantarKcal = v_jantarKcal;
+                RefeicaoManager.Instance.JantarKcal = v_jantarKcal;
                 PlayerPrefs.SetInt("JantarPeso", JantarPeso.value);
                 SetDirty();
             }
             else if (JantarPeso.value == 1)
             {
                 v_jantarKcal = 0.2f;
-                CalculoEnergeticoManager.Instance.JantarKcal = v_jantarKcal;
+                RefeicaoManager.Instance.JantarKcal = v_jantarKcal;
                 PlayerPrefs.SetInt("JantarPeso", JantarPeso.value);
                 SetDirty();
             }
             else if (JantarPeso.value == 2)
             {
                 v_jantarKcal = 0.25f;
-                CalculoEnergeticoManager.Instance.JantarKcal = v_jantarKcal;
+                RefeicaoManager.Instance.JantarKcal = v_jantarKcal;
                 PlayerPrefs.SetInt("JantarPeso", JantarPeso.value);
                 SetDirty();
             }
@@ -293,7 +293,7 @@ public class GerenciadorDietasForm : MonoBehaviour {
             if (CeiaPeso.value == 0)
             {
                 v_ceiaKcal = 0;
-                CalculoEnergeticoManager.Instance.CeiaKcal = v_ceiaKcal;
+                RefeicaoManager.Instance.CeiaKcal = v_ceiaKcal;
                 CeiaIcone.SetActive(false);
                 PlayerPrefs.SetString("StateCeia", "CeiaOFF");
                 PlayerPrefs.SetInt("CeiaPeso", CeiaPeso.value);
@@ -302,7 +302,7 @@ public class GerenciadorDietasForm : MonoBehaviour {
             else if (CeiaPeso.value == 0)
             {
                 v_ceiaKcal = 0.05f;
-                CalculoEnergeticoManager.Instance.CeiaKcal = v_ceiaKcal;
+                RefeicaoManager.Instance.CeiaKcal = v_ceiaKcal;
                 CeiaIcone.SetActive(true);
                 PlayerPrefs.SetString("StateCeia", "CeiaON");
                 PlayerPrefs.SetInt("CeiaPeso", CeiaPeso.value);
@@ -311,7 +311,7 @@ public class GerenciadorDietasForm : MonoBehaviour {
             else if (CeiaPeso.value == 1)
             {
                 v_ceiaKcal = 0.10f;
-                CalculoEnergeticoManager.Instance.CeiaKcal = v_ceiaKcal;
+                RefeicaoManager.Instance.CeiaKcal = v_ceiaKcal;
                 CeiaIcone.SetActive(true);
                 PlayerPrefs.SetString("StateCeia", "CeiaON");
                 PlayerPrefs.SetInt("CeiaPeso", CeiaPeso.value);
@@ -320,7 +320,7 @@ public class GerenciadorDietasForm : MonoBehaviour {
             else if (CeiaPeso.value == 2)
             {
                 v_ceiaKcal = 0.15f;
-                CalculoEnergeticoManager.Instance.CeiaKcal = v_ceiaKcal;
+                RefeicaoManager.Instance.CeiaKcal = v_ceiaKcal;
                 CeiaIcone.SetActive(true);
                 PlayerPrefs.SetString("StateCeia", "CeiaON");
                 PlayerPrefs.SetInt("CeiaPeso", CeiaPeso.value);
@@ -350,34 +350,34 @@ public class GerenciadorDietasForm : MonoBehaviour {
 
             CafeManhaPeso.value = 1;
             PlayerPrefs.SetInt("CafeManhaPeso", CafeManhaPeso.value);
-            CalculoEnergeticoManager.Instance.CafeDaManhaKcal = 0.15f;
-            PlayerPrefs.SetFloat("CafeManhaValor", CalculoEnergeticoManager.Instance.CafeDaManhaKcal);
+            RefeicaoManager.Instance.CafeDaManhaKcal = 0.15f;
+            PlayerPrefs.SetFloat("CafeManhaValor", RefeicaoManager.Instance.CafeDaManhaKcal);
 
             ColacaoPeso.value = 2;
             PlayerPrefs.SetInt("ColacaoPeso", ColacaoPeso.value);
-            CalculoEnergeticoManager.Instance.ColacaoKcal = 0.1f;
-            PlayerPrefs.SetFloat("ColacaoValor", CalculoEnergeticoManager.Instance.ColacaoKcal);
+            RefeicaoManager.Instance.ColacaoKcal = 0.1f;
+            PlayerPrefs.SetFloat("ColacaoValor", RefeicaoManager.Instance.ColacaoKcal);
 
 
             AlmocoPeso.value = 1;
             PlayerPrefs.SetInt("AlmocoPeso", AlmocoPeso.value);
-            CalculoEnergeticoManager.Instance.AlmocoKcal = 0.3f;
-            PlayerPrefs.SetFloat("AlmocoValor", CalculoEnergeticoManager.Instance.AlmocoKcal);
+            RefeicaoManager.Instance.AlmocoKcal = 0.3f;
+            PlayerPrefs.SetFloat("AlmocoValor", RefeicaoManager.Instance.AlmocoKcal);
 
             LancheTardePeso.value = 2;
             PlayerPrefs.SetInt("LancheTardePeso", LancheTardePeso.value);
-            CalculoEnergeticoManager.Instance.LancheTardeKcal = 0.15f;
-            PlayerPrefs.SetFloat("LancheTardeValor", CalculoEnergeticoManager.Instance.LancheTardeKcal);
+            RefeicaoManager.Instance.LancheTardeKcal = 0.15f;
+            PlayerPrefs.SetFloat("LancheTardeValor", RefeicaoManager.Instance.LancheTardeKcal);
 
             JantarPeso.value = 1;
             PlayerPrefs.SetInt("JantarPeso", JantarPeso.value);
-            CalculoEnergeticoManager.Instance.JantarKcal = 0.2f;
-            PlayerPrefs.SetFloat("JantarValor", CalculoEnergeticoManager.Instance.JantarKcal);
+            RefeicaoManager.Instance.JantarKcal = 0.2f;
+            PlayerPrefs.SetFloat("JantarValor", RefeicaoManager.Instance.JantarKcal);
 
             CeiaPeso.value = 2;
             PlayerPrefs.SetInt("CeiaPeso", CeiaPeso.value);
-            CalculoEnergeticoManager.Instance.CeiaKcal = 0.1f;
-            PlayerPrefs.SetFloat("CeiaValor", CalculoEnergeticoManager.Instance.CeiaKcal);
+            RefeicaoManager.Instance.CeiaKcal = 0.1f;
+            PlayerPrefs.SetFloat("CeiaValor", RefeicaoManager.Instance.CeiaKcal);
         }
         PlayerPrefs.Save();
     }
